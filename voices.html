@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Voice Studio - Alexis's Adventure</title>
+    <style>:root{--ink:#1b1d3a;--navy:#2b2f5c;--cream:#fff4dc;--pink:#ff9ec4;--gold:#ffd84a;--sky:#8ad0f2;--green:#58b85a;--red:#e5484d;--grey:#8a8ca0}*{box-sizing:border-box}html,body{background:var(--ink);color:var(--cream);margin:0;font:600 20px/1.35 system-ui,-apple-system,Segoe UI,sans-serif}main{max-width:900px;margin:0 auto;padding:24px 16px 64px}canvas.pixel{image-rendering:pixelated;image-rendering:crisp-edges;display:block}header{flex-wrap:wrap;justify-content:space-between;align-items:center;gap:16px;display:flex}.note{color:var(--sky);margin:12px 0 24px}h2{margin:0}button,.button{font:inherit;letter-spacing:.04em;border:3px solid var(--navy);background:var(--cream);min-height:60px;color:var(--ink);box-shadow:0 5px 0 var(--navy);cursor:pointer;border-radius:8px;justify-content:center;align-items:center;gap:10px;padding:10px 22px;font-weight:800;text-decoration:none;display:inline-flex}button:active:not(:disabled){box-shadow:0 1px 0 var(--navy);transform:translateY(4px)}button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,.button:focus-visible,input:focus-visible{outline:4px solid var(--gold);outline-offset:2px}.record{background:var(--red);color:#fff}.keep{background:var(--green);color:#fff}.play{background:var(--sky)}.small{min-height:48px;padding:6px 14px;font-size:16px}.speakers{grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:18px;margin:18px 0 32px;display:grid}.speaker{background:var(--cream);flex-direction:column;min-height:120px}.speaker .count{font-size:18px}.speaker .who{color:var(--navy);font-size:15px;font-weight:600}.speaker.done{background:var(--gold)}.bar{flex-wrap:wrap;align-items:center;gap:16px;margin-bottom:18px;display:flex}.bar .count{color:var(--gold);font-size:24px}label.name{flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:22px;display:flex}label.name input{font:inherit;border:3px solid var(--navy);border-radius:8px;width:min(320px,100%);min-height:56px;padding:8px 14px}ol.lines{gap:16px;margin:0;padding:0;list-style:none;display:grid}.line{background:var(--cream);color:var(--ink);border:3px solid var(--navy);border-radius:10px;padding:16px}.line .say{margin:6px 0 14px;font-size:24px}.line .tag{color:var(--navy);background:#e6e0d0;border-radius:999px;padding:2px 10px;font-size:15px;display:inline-block}.line .id{color:var(--grey);margin-left:10px;font:600 14px/1 ui-monospace,Menlo,monospace}.line[data-state=kept] .tag{background:var(--green);color:#fff}.line[data-state=recording]{border-color:var(--red)}.line[data-state=recording] .tag{background:var(--red);color:#fff;animation:.8s steps(2,end) infinite blink}@keyframes blink{50%{opacity:.4}}.line .buttons{flex-wrap:wrap;gap:12px;display:flex}footer{border-top:2px solid var(--navy);flex-wrap:wrap;align-items:center;gap:16px;margin-top:40px;padding-top:20px;display:flex}#message{min-height:1.4em;color:var(--gold);margin:16px 0 0}.merge-speakers{font-size:1.1em;line-height:1.6}#merge .buttons{flex-wrap:wrap;gap:12px;display:flex}[hidden]{display:none!important}</style>
+    <script type="module" crossorigin src="/alexis-adventure/assets/voices-AlgCLvGW.js"></script>
+    <link rel="modulepreload" crossorigin href="/alexis-adventure/assets/speech-DKQpKyoK.js">
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1 id="title" aria-label="Voice Studio" style="margin: 0"></h1>
+        <a class="button small" href="./">BACK TO GAME</a>
+      </header>
+      <p class="note">Record your own voice for a character. Your recordings stay on this computer or iPad.</p>
+
+      <section id="pick" data-view="pick">
+        <h2>Who do you want to be?</h2>
+        <div class="speakers" id="speakers"></div>
+      </section>
+
+      <section id="record" data-view="record" hidden>
+        <div class="bar">
+          <button class="small" id="back">&larr; ALL CHARACTERS</button>
+          <h2 id="who-title"></h2>
+          <span class="count" id="count"></span>
+        </div>
+        <label class="name"><span id="name-label">Who is recording?</span> <input id="name" maxlength="40" autocomplete="off" /></label>
+        <ol class="lines" id="lines"></ol>
+      </section>
+
+      <section id="merge" data-view="merge" hidden>
+        <h2>Bring in these recordings?</h2>
+        <ul class="merge-speakers" id="merge-speakers"></ul>
+        <h2 id="merge-both-title">You have these lines too. Pick one for each:</h2>
+        <ol class="lines" id="merge-both"></ol>
+        <div class="buttons">
+          <button class="keep" id="merge-apply">BRING IT IN</button>
+          <button class="small" id="merge-cancel">CANCEL</button>
+        </div>
+      </section>
+
+      <p id="message" role="status"></p>
+
+      <footer>
+        <button class="small" id="export">EXPORT</button>
+        <button class="small" id="import">IMPORT</button>
+        <input type="file" id="import-file" accept=".json,application/json" hidden />
+        <span class="note" style="margin: 0">Move recordings to another computer in one file.</span>
+        <button class="small" id="pack">PACK</button>
+        <span class="note" style="margin: 0">Everything in one file for the family game.</span>
+      </footer>
+    </main>
+  </body>
+</html>
